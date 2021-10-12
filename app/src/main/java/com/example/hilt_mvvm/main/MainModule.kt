@@ -1,6 +1,7 @@
 package com.example.hilt_mvvm.main
 
-import com.example.hilt_mvvm.MyApplication_HiltComponents
+import com.example.hilt_mvvm.main.repository.IMainRepository
+import com.example.hilt_mvvm.main.repository.MainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +12,7 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 @InstallIn(ActivityRetainedComponent::class)
 object MainModule {
     @Provides
-    fun provideMainRepository() : MainRepository{
+    fun provideMainRepository() : IMainRepository {
         return MainRepository()
     }
 }

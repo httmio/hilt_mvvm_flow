@@ -1,13 +1,14 @@
 package com.example.hilt_mvvm.main.data
 
 import com.example.hilt_mvvm.main.Animal
-import com.example.hilt_mvvm.main.MainRepository
+import com.example.hilt_mvvm.main.repository.IMainRepository
+import com.example.hilt_mvvm.main.repository.MainRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AnimalUseCase @Inject constructor(
-    private val repository: MainRepository
+    private val repository: IMainRepository
 ){
     operator fun invoke() : Flow<Resource<List<Animal>>> = flow{
         try {

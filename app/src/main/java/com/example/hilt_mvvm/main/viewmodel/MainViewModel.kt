@@ -1,10 +1,12 @@
-package com.example.hilt_mvvm.main
+package com.example.hilt_mvvm.main.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hilt_mvvm.main.repository.MainRepository
 import com.example.hilt_mvvm.main.data.*
+import com.example.hilt_mvvm.main.repository.IMainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
@@ -14,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getAnimalUseCase: AnimalUseCase,
-    private var mainRepository: MainRepository
+    private var mainRepository: IMainRepository
 ) : ViewModel() {
 
     private var _state = MutableLiveData<AnimalState>()
@@ -51,7 +53,7 @@ class MainViewModel @Inject constructor(
                     _state.value = AnimalState(error = result.message ?: "Unknown Message")
                 }
             }
-        }
+        }.launchIn(viewModelScope)
     }
     private fun fetchUsers2() = flow {
         try {
